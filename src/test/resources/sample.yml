@@ -1,0 +1,17 @@
+---
+name: aleksandergrzybowski.pl
+description: My website
+check:
+  type: http
+  host: aleksandergrzybowski.pl 
+  url: '/index.html'
+---
+name: kelog.pl
+description: My server
+check:
+  type: ssh
+  host: kelog.pl
+  user: test
+  keyPath: /id_rsa
+  command: check_disk.sh
+  
