@@ -3,8 +3,7 @@ name: aleksandergrzybowski.pl
 description: My website
 check:
   type: http
-  host: aleksandergrzybowski.pl 
-  url: '/index.html'
+  url: 'http://aleksandergrzybowski.pl/index.html'
 ---
 name: kelog.pl
 description: My server

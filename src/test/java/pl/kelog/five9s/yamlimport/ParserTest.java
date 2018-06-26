@@ -24,7 +24,7 @@ public class ParserTest {
         assertThat(http).isEqualTo(new ServiceDefinition(
                 "aleksandergrzybowski.pl",
                 "My website",
-                http("aleksandergrzybowski.pl", "/index.html")
+                http("http://aleksandergrzybowski.pl/index.html")
         ));
         
         ServiceDefinition sshDef = definitions.get(1);
@@ -35,6 +35,7 @@ public class ParserTest {
         ));
     }
     
+    @SuppressWarnings("SameParameterValue")
     private String readResource(String filename) throws IOException {
         return IOUtils.toString(IOUtils.toByteArray(getClass().getResourceAsStream(filename)), "UTF-8");
     }

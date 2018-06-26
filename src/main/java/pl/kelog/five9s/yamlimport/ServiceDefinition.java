@@ -20,21 +20,21 @@ public class ServiceDefinition {
     @ToString
     static class CheckDefinition {
         
-        static CheckDefinition http(String host, String url) {
-            return new CheckDefinition(CheckType.HTTP, host, url, null, null, null);
+        static CheckDefinition http(String url) {
+            return new CheckDefinition(CheckType.HTTP, url, null, null, null, null);
         }
         
         static CheckDefinition ssh(String host, String keyPath, String user, String command) {
-            return new CheckDefinition(CheckType.SSH, host, null, keyPath, user, command);
+            return new CheckDefinition(CheckType.SSH, null, host, keyPath, user, command);
         }
         
         public final CheckType type;
-        public final String host;
         
         // for HTTP
         public final String url;
         
         // for SSH
+        public final String host;
         public final String keyPath;
         public final String user;
         public final String command;

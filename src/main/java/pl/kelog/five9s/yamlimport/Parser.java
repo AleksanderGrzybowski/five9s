@@ -32,7 +32,7 @@ class Parser {
         CheckDefinition checkDefinition;
         if (checkType == CheckType.HTTP) {
             checkDefinition = CheckDefinition.http(
-                    (String) checkMap.get("host"), (String) checkMap.get("url")
+                    (String) checkMap.get("url")
             );
         } else if (checkType == CheckType.SSH) {
             checkDefinition = CheckDefinition.ssh(
