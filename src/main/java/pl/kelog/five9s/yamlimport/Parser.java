@@ -1,5 +1,7 @@
 package pl.kelog.five9s.yamlimport;
 
+import lombok.extern.java.Log;
+import org.springframework.stereotype.Service;
 import org.yaml.snakeyaml.Yaml;
 import pl.kelog.five9s.yamlimport.ServiceDefinition.CheckDefinition;
 import pl.kelog.five9s.yamlimport.ServiceDefinition.CheckType;
@@ -13,11 +15,15 @@ import static java.util.stream.Collectors.toList;
 /**
  * I could not find a way to use POJO mappings, so I rolled it out by hand.
  */
+@Service
+@Log
 class Parser {
     
     private static final Yaml YAML = new Yaml();
     
     List<ServiceDefinition> parse(String yamlContent) {
+        log.info("Parsing yaml file, " + yamlContent.length() + " bytes...");
+        
         return iteratorToList(YAML.loadAll(yamlContent)).stream()
                 .map(Parser::createDefinition)
                 .collect(toList());
@@ -43,11 +49,14 @@ class Parser {
             throw new AssertionError("Unknown check type");
         }
         
-        return new ServiceDefinition(
+        ServiceDefinition result = new ServiceDefinition(
                 (String) definitionMap.get("name"),
                 (String) definitionMap.get("description"),
                 checkDefinition
         );
+        log.info("Parsed definition: " + result);
+        
+        return result;
     }
     
     private static <T> List<T> iteratorToList(Iterable<T> iterable) {

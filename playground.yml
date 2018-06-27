@@ -1,0 +1,12 @@
+---
+name: aleksandergrzybowski.pl
+description: My website
+check:
+  type: http
+  url: 'https://aleksandergrzybowski.pl/index.html'
+---
+name: google.com
+description: Google
+check:
+  type: http
+  url: 'https://google.com'
