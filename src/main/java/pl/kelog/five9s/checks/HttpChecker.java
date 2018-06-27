@@ -20,7 +20,7 @@ public class HttpChecker {
     
     private final RestTemplateBuilder restTemplateBuilder;
     
-    CheckStatus perform(String url, int timeout) {
+    public CheckStatus perform(String url, int timeout) {
         HttpStatus httpStatus = makeRequest(url, timeout);
         return httpStatus.isError() ? DOWN : UP;
     }

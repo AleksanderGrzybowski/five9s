@@ -18,7 +18,7 @@ public class ServiceDefinition {
     @EqualsAndHashCode
     @AllArgsConstructor(access = AccessLevel.PACKAGE)
     @ToString
-    static class CheckDefinition {
+    public static class CheckDefinition {
         
         static CheckDefinition http(String url) {
             return new CheckDefinition(CheckType.HTTP, url, null, null, null, null);
@@ -40,7 +40,7 @@ public class ServiceDefinition {
         public final String command;
     }
     
-    enum CheckType {
+    public enum CheckType {
         HTTP, SSH
     }
 }
