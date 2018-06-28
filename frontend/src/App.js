@@ -1,15 +1,36 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import ServiceInfoRow from './ServiceInfoRow';
 
 class App extends Component {
+ 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      services: []
+    }
+  }
+
+  componentDidMount() {
+    setInterval(this.fetchData, 2000);
+  }
+
+  fetchData = () => {
+    axios.get('/api/list')
+      .then(({data}) => this.setState({services: data}))
+      .catch(e => console.error(e));
+  };
+
   render() {
+    const services = this.state.services.map(service =>
+      <ServiceInfoRow key={service.name} service={service}/>
+    );
+
     return (
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h1>Services:</h1>
+        <ul>{services}</ul>
       </div>
     );
   }
