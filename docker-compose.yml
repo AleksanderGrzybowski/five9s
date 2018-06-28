@@ -1,0 +1,9 @@
+version: '2'
+services:
+  db:
+    image: mariadb:latest
+    ports:
+    - 3307:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: five9s
