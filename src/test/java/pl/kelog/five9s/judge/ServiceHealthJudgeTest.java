@@ -76,7 +76,7 @@ public class ServiceHealthJudgeTest {
         
         for (boolean value : values) {
             PerformedCheckInfo info = new PerformedCheckInfo();
-            info.setStatus(value ? CheckStatus.UP : CheckStatus.DOWN);
+            info.setStatus(value ? CheckStatus.Status.UP : CheckStatus.Status.DOWN);
             list.add(info);
         }
         

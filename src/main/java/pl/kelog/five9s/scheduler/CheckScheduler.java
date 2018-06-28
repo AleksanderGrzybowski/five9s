@@ -41,7 +41,8 @@ public class CheckScheduler {
             PerformedCheckInfo info = new PerformedCheckInfo();
             info.setName(serviceDefinition.name);
             info.setTimestamp(dateService.now());
-            info.setStatus(status);
+            info.setStatus(status.status);
+            info.setLog(status.log);
             performedCheckRepository.save(info);
         }
     }

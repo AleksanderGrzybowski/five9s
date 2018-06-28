@@ -19,7 +19,7 @@ public class PerformedCheckInfo {
     private LocalDateTime timestamp;
     
     @Enumerated(EnumType.STRING)
-    private CheckStatus status;
+    private CheckStatus.Status status;
     
-    private String notes = "TBD";
+    private String log = "TBD";
 }

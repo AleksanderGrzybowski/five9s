@@ -10,8 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static pl.kelog.five9s.checks.CheckStatus.DOWN;
-import static pl.kelog.five9s.checks.CheckStatus.UP;
+import static pl.kelog.five9s.checks.CheckStatus.Status.DOWN;
+import static pl.kelog.five9s.checks.CheckStatus.Status.UP;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -31,21 +31,21 @@ public class HttpCheckerTest {
     @Test
     public void should_return_UP_on_http_200() {
         assertThat(
-                checker.perform(MOCK_SERVER + "/200", DEFAULT_TIMEOUT)
+                checker.perform(MOCK_SERVER + "/200", DEFAULT_TIMEOUT).status
         ).isEqualTo(UP);
     }
     
     @Test
     public void should_return_DOWN_on_http_500() {
         assertThat(
-                checker.perform(MOCK_SERVER + "/500", DEFAULT_TIMEOUT)
+                checker.perform(MOCK_SERVER + "/500", DEFAULT_TIMEOUT).status
         ).isEqualTo(DOWN);
     }
     
     @Test
     public void should_return_DOWN_on_timeout() {
         assertThat(
-                checker.perform(MOCK_SERVER + "/500?sleep=" + DEFAULT_TIMEOUT / 10, DEFAULT_TIMEOUT)
+                checker.perform(MOCK_SERVER + "/500?sleep=" + DEFAULT_TIMEOUT / 10, DEFAULT_TIMEOUT).status
         ).isEqualTo(DOWN);
     }
 }

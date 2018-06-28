@@ -23,13 +23,13 @@ public class ServiceHealthJudge {
             return ServiceStatus.UNKNOWN;
         }
         
-        if (checks.get(checks.size() - 1).getStatus() == CheckStatus.UP) {
+        if (checks.get(checks.size() - 1).getStatus() == CheckStatus.Status.UP) {
             return ServiceStatus.UP;
         }
         
         int downCounter = 0;
         for (int i = checks.size() - 1; i >= 0; i--) {
-            if (checks.get(i).getStatus() == CheckStatus.DOWN) {
+            if (checks.get(i).getStatus() == CheckStatus.Status.DOWN) {
                 downCounter++;
             } else {
                 break;
