@@ -21,5 +21,5 @@ public class PerformedCheckInfo {
     @Enumerated(EnumType.STRING)
     private CheckStatus.Status status;
     
-    private String log = "TBD";
+    private String log = "";
 }
