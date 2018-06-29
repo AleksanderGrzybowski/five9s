@@ -11,6 +11,7 @@ class App extends Component {
     super(props);
 
     this.state = {
+      ready: false,
       services: []
     }
   }
@@ -21,7 +22,7 @@ class App extends Component {
 
   fetchData = () => {
     axios.get('/api/list')
-      .then(({data}) => this.setState({services: data}))
+      .then(({data}) => this.setState({ready: true, services: data}))
       .catch(e => console.error(e));
   };
 
@@ -30,20 +31,28 @@ class App extends Component {
       <ServiceInfoRow key={service.name} service={service}/>
     );
 
+    const table = (
+      <Table bordered>
+        <thead>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Status</th>
+        </thead>
+        <tbody>
+        {rows}
+        </tbody>
+      </Table>
+    );
+
+    const loading = <h1 className="text-center" style={{fontSize: '20pt'}}>Loading ...</h1>;
+
+    const view = this.state.ready ? table : loading;
+
     return (
       <Grid>
         <Row>
           <Col md={12}>
-            <Table bordered>
-              <thead>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Status</th>
-              </thead>
-              <tbody>
-              {rows}
-              </tbody>
-            </Table>
+            {view}
           </Col>
         </Row>
       </Grid>
