@@ -34,9 +34,11 @@ class App extends Component {
     const table = (
       <Table bordered>
         <thead>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Status</th>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Status</th>
+        </tr>
         </thead>
         <tbody>
         {rows}
