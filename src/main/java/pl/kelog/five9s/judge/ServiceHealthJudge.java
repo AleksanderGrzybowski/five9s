@@ -8,6 +8,8 @@ import pl.kelog.five9s.db.PerformedCheckRepository;
 
 import java.util.List;
 
+import static pl.kelog.five9s.judge.ServiceStatus.*;
+
 @Service
 @RequiredArgsConstructor
 public class ServiceHealthJudge {
@@ -20,11 +22,11 @@ public class ServiceHealthJudge {
         List<PerformedCheckInfo> checks = performedCheckRepository.findAll(serviceName);
         
         if (checks.isEmpty()) {
-            return ServiceStatus.UNKNOWN;
+            return unknown();
         }
         
         if (checks.get(checks.size() - 1).getStatus() == CheckStatus.Status.UP) {
-            return ServiceStatus.UP;
+            return up();
         }
         
         int downCounter = 0;
@@ -36,6 +38,6 @@ public class ServiceHealthJudge {
             }
         }
         
-        return (downCounter >= WARN_THRESHOLD) ? ServiceStatus.DOWN : ServiceStatus.WARN;
+        return downCounter >= WARN_THRESHOLD ? down(downCounter) : warn(downCounter);
     }
 }

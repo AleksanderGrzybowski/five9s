@@ -34,14 +34,14 @@ public class ServiceHealthJudgeTest {
     public void should_report_UNKNOWN_if_there_are_no_performed_checks_at_all() {
         mockRepository(emptyList());
         
-        assertThat(judge.statusOf(SERVICE_NAME)).isEqualTo(UNKNOWN);
+        assertThat(judge.statusOf(SERVICE_NAME)).isEqualTo(unknown());
     }
     
     @Test
     public void should_report_UP_if_the_last_check_was_ok() {
         mockRepository(createCheckList(true));
         
-        assertThat(judge.statusOf(SERVICE_NAME)).isEqualTo(UP);
+        assertThat(judge.statusOf(SERVICE_NAME)).isEqualTo(up());
     }
     
     @Test
@@ -49,7 +49,7 @@ public class ServiceHealthJudgeTest {
         for (int i = 1; i < WARN_THRESHOLD; ++i) {
             mockRepository(createDownCheckList(i));
             
-            assertThat(judge.statusOf(SERVICE_NAME)).isEqualTo(WARN);
+            assertThat(judge.statusOf(SERVICE_NAME)).isEqualTo(warn(i));
         }
     }
     
@@ -58,7 +58,7 @@ public class ServiceHealthJudgeTest {
         for (int i = WARN_THRESHOLD; i <= WARN_THRESHOLD * 2; ++i) {
             mockRepository(createDownCheckList(i));
             
-            assertThat(judge.statusOf(SERVICE_NAME)).isEqualTo(DOWN);
+            assertThat(judge.statusOf(SERVICE_NAME)).isEqualTo(down(i));
         }
     }
     
