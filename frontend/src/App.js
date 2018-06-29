@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import ServiceInfoRow from './ServiceInfoRow';
+import { Col, Grid, Row, Table } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.css';
+
 
 class App extends Component {
- 
+
   constructor(props) {
     super(props);
 
@@ -23,15 +26,27 @@ class App extends Component {
   };
 
   render() {
-    const services = this.state.services.map(service =>
+    const rows = this.state.services.map(service =>
       <ServiceInfoRow key={service.name} service={service}/>
     );
 
     return (
-      <div className="App">
-        <h1>Services:</h1>
-        <ul>{services}</ul>
-      </div>
+      <Grid>
+        <Row>
+          <Col md={12}>
+            <Table bordered>
+              <thead>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Status</th>
+              </thead>
+              <tbody>
+              {rows}
+              </tbody>
+            </Table>
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 }
