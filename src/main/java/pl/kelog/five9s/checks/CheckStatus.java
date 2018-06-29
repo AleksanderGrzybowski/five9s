@@ -1,12 +1,13 @@
 package pl.kelog.five9s.checks;
 
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 import static pl.kelog.five9s.checks.CheckStatus.Status.DOWN;
 import static pl.kelog.five9s.checks.CheckStatus.Status.UP;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 public class CheckStatus {
     public final Status status;
