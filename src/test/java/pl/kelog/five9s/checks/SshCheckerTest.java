@@ -1,6 +1,7 @@
 package pl.kelog.five9s.checks;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -8,6 +9,7 @@ import static pl.kelog.five9s.checks.CheckStatus.Status.DOWN;
 import static pl.kelog.five9s.checks.CheckStatus.Status.UP;
 
 
+@Ignore
 public class SshCheckerTest {
     
     // Use only when needed
