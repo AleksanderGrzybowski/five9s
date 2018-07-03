@@ -50,10 +50,11 @@ public class SshChecker {
         String commandOutput = IOUtils.toString(cmd.getInputStream(), Charset.defaultCharset());
         Integer exitStatus = cmd.getExitStatus();
         
-        String message = "Command {0} returned exit code {1}, output: {2}";
-        log.info(format(message,
-                command, exitStatus, commandOutput
-        ));
+        String message = format(
+                "Command {0} returned exit code {1}, output: {2}",
+                command, exitStatus, commandOutput);
+        
+        log.info(message);
         
         return exitStatus == EXIT_SUCCESS_STATUS ? up(message) : down(message);
     }
