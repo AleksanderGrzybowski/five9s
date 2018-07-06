@@ -32,7 +32,7 @@ class App extends Component {
     );
 
     const table = (
-      <Table bordered>
+      <Table striped bordered hover style={{marginTop: 20}}>
         <thead>
         <tr>
           <th>Name</th>
@@ -52,7 +52,7 @@ class App extends Component {
     const view = this.state.ready ? table : loading;
 
     return (
-      <Grid>
+      <Grid fluid>
         <Row>
           <Col md={12}>
             {view}
