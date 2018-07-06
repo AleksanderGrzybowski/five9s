@@ -4,6 +4,8 @@ import ServiceInfoRow from './ServiceInfoRow';
 import { Col, Grid, Row, Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 
+const refreshInterval = 2000;
+const endpoint = '/api/list';
 
 class App extends Component {
 
@@ -11,19 +13,23 @@ class App extends Component {
     super(props);
 
     this.state = {
-      ready: false,
+      isReady: false,
       services: []
     }
   }
 
   componentDidMount() {
-    setInterval(this.fetchData, 2000);
+    setInterval(this.fetchData, refreshInterval);
+    this.fetchData();
   }
 
   fetchData = () => {
-    axios.get('/api/list')
-      .then(({data}) => this.setState({ready: true, services: data}))
-      .catch(e => console.error(e));
+    axios.get(endpoint)
+      .then(({data}) => this.setState({isReady: true, services: data}))
+      .catch(e => {
+        this.setState({isReady: false});
+        console.error(e);
+      });
   };
 
   render() {
@@ -47,9 +53,9 @@ class App extends Component {
       </Table>
     );
 
-    const loading = <h1 className="text-center" style={{fontSize: '20pt'}}>Loading ...</h1>;
+    const loading = <h1 className="text-center" style={{fontSize: '20pt'}}>Please wait...</h1>;
 
-    const view = this.state.ready ? table : loading;
+    const view = this.state.isReady ? table : loading;
 
     return (
       <Grid fluid>
