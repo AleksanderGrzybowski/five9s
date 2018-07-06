@@ -1,22 +1,28 @@
 import React from 'react';
 
+// For some reason Badge component doesn't work
 const classNames = {
-  UP: 'table-success',
-  WARN: 'table-warning',
-  DOWN: 'table-danger'
+  UP: 'badge-success',
+  WARN: 'badge-warning',
+  DOWN: 'badge-danger'
 };
 
 export default function ServiceInfoRow({service}) {
-  const className = classNames[service.status.status] || '';
+  const badgeClassName = 'badge ' + classNames[service.status.status] || '';
 
   const failureCount = service.status.failureCount;
   const failureCounter = failureCount > 0 ? <span>({failureCount} fails)</span> : null;
 
   return (
-    <tr className={className}>
+    <tr>
       <td>{service.name}</td>
       <td>{service.description}</td>
-      <td>{service.status.status} {failureCounter}</td>
+      <td>
+        <span style={{fontSize: 14}} className={badgeClassName}> {service.status.status} {failureCounter} </span>
+      </td>
+      <td>
+        <code> {service.lastMessage} </code>
+      </td>
     </tr>
   )
 }

@@ -38,6 +38,7 @@ class App extends Component {
           <th>Name</th>
           <th>Description</th>
           <th>Status</th>
+          <th>Last output</th>
         </tr>
         </thead>
         <tbody>
