@@ -21,5 +21,6 @@ public class PerformedCheckInfo {
     @Enumerated(EnumType.STRING)
     private CheckStatus.Status status;
     
+    @Lob
     private String log = "";
 }
