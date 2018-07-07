@@ -4,7 +4,7 @@ import ServiceInfoRow from './ServiceInfoRow';
 import { Col, Grid, Row, Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 
-const refreshInterval = 2000;
+const refreshInterval = 30000;
 const endpoint = '/api/list';
 
 class App extends Component {
