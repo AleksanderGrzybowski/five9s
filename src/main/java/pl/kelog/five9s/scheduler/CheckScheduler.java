@@ -25,7 +25,7 @@ public class CheckScheduler {
     private final SshChecker sshChecker;
     private final DateService dateService;
     
-    @Scheduled(fixedRate = 10000, initialDelay = 1000)
+    @Scheduled(fixedRateString = "${app.checkInterval}", initialDelay = 10000)
     public void loop() {
         log.info("Starting check loop...");
         
