@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import ServiceTable from './ServiceTable';
 import LoadingText from './LoadingText';
 
-const refreshInterval = 30000;
+const refreshInterval = 10000;
 const endpoint = '/api/list';
 
 class App extends Component {
