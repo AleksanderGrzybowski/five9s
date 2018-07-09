@@ -16,12 +16,3 @@ description: Always 500 Server error
 check:
   type: http
   url: 'http://httpstat.us/500'
----
-name: ovh-diskspace
-description: My server disk space
-check:
-  type: ssh
-  host: kelog.pl
-  keyPath: /home/kelog/.ssh/icinga_id_rsa
-  user: icinga
-  command: check_disk.sh
