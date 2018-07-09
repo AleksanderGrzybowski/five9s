@@ -15,13 +15,12 @@ export default function ServiceInfoRow({service}) {
 
   return (
     <tr>
-      <td>{service.name}</td>
       <td>{service.description}</td>
       <td>
         <span style={{fontSize: 14}} className={badgeClassName}> {service.status.status} {failureCounter} </span>
       </td>
       <td>
-        <code> {service.lastMessage} </code>
+        <code>{service.lastMessage}</code>
       </td>
     </tr>
   )

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import ServiceInfoRow from './ServiceInfoRow';
-import { Col, Grid, Row, Table } from 'react-bootstrap';
+import { Col, Grid, Row } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
+import ServiceTable from './ServiceTable';
+import LoadingText from './LoadingText';
 
 const refreshInterval = 30000;
 const endpoint = '/api/list';
@@ -33,29 +34,7 @@ class App extends Component {
   };
 
   render() {
-    const rows = this.state.services.map(service =>
-      <ServiceInfoRow key={service.name} service={service}/>
-    );
-
-    const table = (
-      <Table striped bordered hover style={{marginTop: 20}}>
-        <thead>
-        <tr>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Status</th>
-          <th>Last output</th>
-        </tr>
-        </thead>
-        <tbody>
-        {rows}
-        </tbody>
-      </Table>
-    );
-
-    const loading = <h1 className="text-center" style={{fontSize: '20pt'}}>Please wait...</h1>;
-
-    const view = this.state.isReady ? table : loading;
+    const view = this.state.isReady ? <ServiceTable services={this.state.services}/> : <LoadingText/>;
 
     return (
       <Grid fluid>
