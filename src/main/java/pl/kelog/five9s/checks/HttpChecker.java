@@ -10,6 +10,9 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
+import static pl.kelog.five9s.checks.CheckStatus.down;
+import static pl.kelog.five9s.checks.CheckStatus.up;
+
 @Service
 @RequiredArgsConstructor
 public class HttpChecker {
@@ -24,11 +27,13 @@ public class HttpChecker {
                     url, HttpMethod.GET, HttpEntity.EMPTY, String.class
             );
             
-            return CheckStatus.up("Status code: " + response.getStatusCode());
+            return up("Status code: " + response.getStatusCode());
         } catch (HttpServerErrorException e) {
-            return CheckStatus.down("Status code: " + e.getStatusCode());
+            return down("Status code: " + e.getStatusCode());
         } catch (ResourceAccessException e) {
-            return CheckStatus.down("Other error: " + e.getMessage());
+            return down("Other error: " + e.getMessage());
+        } catch (Exception e) {
+            return down("Unexpected error: " + e.getMessage());
         }
     }
     

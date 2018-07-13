@@ -12,6 +12,7 @@ import pl.kelog.five9s.db.PerformedCheckRepository;
 import pl.kelog.five9s.utils.DateService;
 import pl.kelog.five9s.yamlimport.ServiceDefinition;
 import pl.kelog.five9s.yamlimport.ServiceDefinition.CheckDefinition;
+import pl.kelog.five9s.yamlimport.ServiceDefinition.CheckType;
 import pl.kelog.five9s.yamlimport.ServiceDefinitionRepository;
 
 @Service
@@ -29,20 +30,19 @@ public class CheckScheduler {
     public void loop() {
         log.info("Starting check loop...");
         
-        serviceDefinitionRepository.findAll().forEach(serviceDefinition -> performCheck(serviceDefinition));
+        serviceDefinitionRepository.findAll().forEach(this::performCheck);
         
         log.info("Check loop finished.");
     }
     
     private void performCheck(ServiceDefinition serviceDefinition) {
-        log.info("Running " + serviceDefinition.name + "(" + serviceDefinition.description + ")...");
+        log.info("Running " + serviceDefinition.name + " (" + serviceDefinition.description + ")...");
         CheckDefinition checkDefinition = serviceDefinition.checkDefinition;
         
         CheckStatus status;
-        if (checkDefinition.type == ServiceDefinition.CheckType.HTTP) {
+        if (checkDefinition.type == CheckType.HTTP) {
             status = httpChecker.perform(checkDefinition.url, 10000);
-            
-        } else if (checkDefinition.type == ServiceDefinition.CheckType.SSH) {
+        } else if (checkDefinition.type == CheckType.SSH) {
             status = sshChecker.perform(
                     checkDefinition.host,
                     checkDefinition.user,
@@ -53,6 +53,10 @@ public class CheckScheduler {
             throw new AssertionError("Unknown check type " + checkDefinition.type);
         }
         
+        storePerformedCheckInfo(serviceDefinition, status);
+    }
+    
+    private void storePerformedCheckInfo(ServiceDefinition serviceDefinition, CheckStatus status) {
         log.info("Status of " + serviceDefinition.name + " -> " + status + ", saving.");
         PerformedCheckInfo info = new PerformedCheckInfo();
         info.setName(serviceDefinition.name);
